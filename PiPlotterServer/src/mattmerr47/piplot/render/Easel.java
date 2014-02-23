@@ -36,8 +36,8 @@ public class Easel extends JPanel {
 		
 		this.setBackground(Color.GRAY);
 		
-		steppers = new Stepper[]{ new Stepper(this), new Stepper(this)};
-		pen = new Pen(this);
+		steppers = new Stepper[]{ new Stepper(), new Stepper()};
+		pen = new Pen();
 		paper = new BufferedImage(width - (2*xPad), height - yPad, BufferedImage.TYPE_INT_RGB);
 		
 		paper.getGraphics().setColor(Color.WHITE);

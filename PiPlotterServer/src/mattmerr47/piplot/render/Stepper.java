@@ -2,12 +2,7 @@ package mattmerr47.piplot.render;
 
 public class Stepper {
 	
-	private Easel easel;
 	private double stringLength = -1;
-	
-	public Stepper(Easel easel){
-		this.easel = easel;
-	}
 	
 	public void setLength(double length){
 		this.stringLength = length;

@@ -17,5 +17,6 @@
 			<attribute name="javadoc_location" value="jar:file:/C:/Users/Matthew/Documents/Libs/pi4j-1.0-SNAPSHOT/lib/pi4j-device-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry combineaccessrules="false" kind="src" path="/PiPlotterIO"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

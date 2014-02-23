@@ -7,12 +7,9 @@ import javax.swing.JComponent;
 
 public class Pen extends JComponent {
 	
-	private Easel easel;
-	private boolean drawing = false;
+	private static final long serialVersionUID = 534321916580976195L;
 	
-	public Pen(Easel easel){
-		this.easel = easel;
-	}
+	private boolean drawing = false;
 	
 	@Override
 	public void paint(Graphics g) {
