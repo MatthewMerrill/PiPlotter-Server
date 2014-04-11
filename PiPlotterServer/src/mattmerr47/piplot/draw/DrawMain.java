@@ -1,40 +1,34 @@
 package mattmerr47.piplot.draw;
 
+import java.io.File;
+
+import mattmerr47.piplot.io.PositionHelper;
 import mattmerr47.piplot.io.drawdata.DrawData;
-import mattmerr47.piplot.io.path.Point;
-import mattmerr47.piplot.io.plotter.IPenPlotter;
+import mattmerr47.piplot.io.drawdata.FileHandler;
+import mattmerr47.piplot.io.path.Path;
 
 public class DrawMain {
 
-	private static IPenPlotter plotter;
+	private static PenPlotter plotter;
+	private static PositionHelper posHelper;
 	
 	public static void main(String[] args) throws InterruptedException {
+
+		plotter = new PenPlotter(11, 14, 2.5, 6);
+		posHelper = plotter.posHelper;
 		
-		plotter = new PenPlotter(14, 16, 2.5, 6);
-		
-		plotter.gotoPosition(new Point(0,0));
-	}//*/
-	/*
-	public static void main(String[] args) {
-		
-		Plotter plotter = new Plotter(5);
-		CurveProvider cp = new CurveProvider();
-		plotter.setMultiCurve(cp);
-		plotter.
-		
-	}*/
-	
-	public static void drawImage(DrawData data) {
-		
+		if (args.length >= 1) {
+			DrawData data = FileHandler.readFrom(new File(args[0]));
+			drawImage(data);
+		} else {
+			System.out.println("Will loop until infinity. Press 'Ctrl + C' to stop.");
+			posHelper.flower();
+		}
 	}
 	
-	/*private static ServerListener sl = new ServerListener(){
-		
-		@Override
-		public void onCompletion(DrawData received) {
-			drawImage(received);
-		}
-		
-	};*/
-
+	public static void drawImage(DrawData data) {
+		for (Path path : data.getPaths()) {	
+			path.draw(posHelper);			
+		}	
+	}
 }

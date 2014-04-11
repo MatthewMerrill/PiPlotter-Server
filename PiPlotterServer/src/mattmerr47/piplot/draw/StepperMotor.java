@@ -1,6 +1,7 @@
 package mattmerr47.piplot.draw;
 
-import mattmerr47.piplot.draw.Logger.LEVEL;
+import mattmerr47.piplot.io.Logger;
+import mattmerr47.piplot.io.Logger.LEVEL;
 import mattmerr47.piplot.io.plotter.IStepperMotor;
 
 import com.pi4j.component.motor.impl.GpioStepperMotorComponent;
@@ -25,10 +26,6 @@ public class StepperMotor implements IStepperMotor {
 		gpio.provisionDigitalOutputPin(RaspiPin.GPIO_05, PinState.LOW),
 		gpio.provisionDigitalOutputPin(RaspiPin.GPIO_06, PinState.LOW),
 		gpio.provisionDigitalOutputPin(RaspiPin.GPIO_07, PinState.LOW)};
-	
-	public final static GpioPinDigitalOutput[] pins3 = {
-		gpio.provisionDigitalOutputPin(RaspiPin.GPIO_08, PinState.LOW),
-		gpio.provisionDigitalOutputPin(RaspiPin.GPIO_09, PinState.LOW)};
 	
 	/**
 	 * Uses least energy and provides quick movement.
@@ -63,6 +60,7 @@ public class StepperMotor implements IStepperMotor {
 		(byte) 0b1001,};
 	
 	private final GpioStepperMotorComponent step; 
+	private int stepsMoved = 0;
 	
 	public StepperMotor(int stepsPerRevolution, byte[] stepSequence, GpioPinDigitalOutput[] pins) {
 
@@ -79,6 +77,11 @@ public class StepperMotor implements IStepperMotor {
 	@Override
 	public double getStepsPerRev() {
 		return step.getStepsPerRevolution();
+	}
+	
+	@Override
+	public int getStepsMoved() {
+		return stepsMoved;
 	}
 	
 	@Override
@@ -99,10 +102,8 @@ public class StepperMotor implements IStepperMotor {
 			step.setStepInterval((long)stepInterval);
 			step.rotate(degrees/360);
 		}
-	}
-	
-	//public void step() {
-	//	step.step(1);
-	//}
 
+        long steps = Math.round(getStepsPerRev() * (degrees/360));
+        stepsMoved += steps;
+	}
 }
