@@ -16,7 +16,7 @@ public class PenPlotter implements IPenPlotter {
 	
 	private StepperMotor left;
 	private StepperMotor right;
-	//private ServoMotor servo;
+	private ServoMotor servo;
 	
 	public final double xPad;
 	public final double yPad;
@@ -35,7 +35,7 @@ public class PenPlotter implements IPenPlotter {
 		
 		left = new StepperMotor(4096, StepperMotor.HALF_STEP_SEQUENCE, StepperMotor.pins1);
 		right = new StepperMotor(4096, StepperMotor.HALF_STEP_SEQUENCE, StepperMotor.pins2);
-		//servo = new ServoMotor();
+		servo = new ServoMotor();
 		
 		posHelper = new PositionHelper(this, left, right);
 	}
@@ -49,19 +49,19 @@ public class PenPlotter implements IPenPlotter {
 		return posHelper.getPenPosition();
 	}
 	
-	/* Not functional yet - Sorry!
+	///* Not functional yet - Sorry!
 	@Override
 	public void setMarking(boolean marking) {
 		try {
 			servo.setMarking(marking);
-		} catch (InterruptedException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	@Override
 	public boolean getMarking() {
 		return servo.getMarking();
-	}*/
+	}//*/
 
 	@Override
 	public double wheelDistance() {
@@ -93,6 +93,10 @@ public class PenPlotter implements IPenPlotter {
 	@Override
 	public double getYPad() {
 		return this.yPad;
+	}
+	
+	public void clear(){
+		servo.clear();
 	}
 
 }
